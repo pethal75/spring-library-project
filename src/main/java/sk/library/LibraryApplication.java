@@ -1,7 +1,12 @@
 package sk.library;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import sk.library.dto.AuthorSurname;
 import sk.library.model.Author;
 import sk.library.model.Book;
+import sk.library.model.Review;
 import sk.library.repository.AuthorRepository;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
@@ -21,26 +26,23 @@ public class LibraryApplication {
 		return (args) -> {
 			System.out.println("*** DEMO JPA ***");
 
-			List<Author> authors = repository.findAll();
+			Pageable page = PageRequest.of(2,5, Sort.by("name"));
+
+			List<Author> authors = repository.findAllByAnyName("k", page);
 
 			for (Author author : authors) {
 				System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
 
-				for(Book book : author.getBooks())
+				for(Book book : author.getBooks()) {
 					System.out.println("  BOOK: " + book.getName());
+
+					for(Review review : book.getReviews())
+						System.out.println("    REVIEW: " + review.getReviewText());
+
+				}
 
 				System.out.println();
 			}
-
-			Author author1 = new Author();
-
-			author1.setName("Mark");
-			author1.setSurname("Twain2");
-
-			repository.save(author1);
-
-			author1.setSurname("Twain3");
-			repository.save(author1);
 		};
 	}
 }
