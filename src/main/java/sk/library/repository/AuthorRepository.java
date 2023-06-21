@@ -21,7 +21,7 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
     @Query("select a from Author a where lower(a.name) like %:searchString% or lower(a.surname) like %:searchString%")
     List<AuthorSurname> findSurnamesByAnyName(@Param("searchString") String search);
 
-    @Query("select a from Author a where (select count(*) from Book b where b.author.id = a.id) > :count")
+    @Query("select a from Author a where (select count(*) from Book b where b.author.id = a.id) >= :count")
     List<Author> findAllByBookCount(@Param("count") int count);
 
     List<AuthorSurname> findAllByOrderByName();
