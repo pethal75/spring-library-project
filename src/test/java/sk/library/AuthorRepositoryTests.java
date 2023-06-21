@@ -14,7 +14,7 @@ import sk.library.model.Author;
 import sk.library.repository.AuthorRepository;
 
 @SpringBootTest
-class DemoJpaApplicationTests {
+class AuthorRepositoryTests {
 
 	@Autowired
 	AuthorRepository repository;
@@ -30,7 +30,7 @@ class DemoJpaApplicationTests {
 	@Test
 	void testLoadAuthorsByName() {
 
-		List<Author> authorList = repository.findAllByNameOrSurname("Jozef", "Kukucin");
+		List<Author> authorList = repository.findAllByNameOrSurname("Ernest", "Gogol");
 
 		assertThat(authorList).hasSize(2);
 	}

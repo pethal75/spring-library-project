@@ -1,5 +1,6 @@
 package sk.library;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,9 +27,33 @@ public class LibraryApplication {
 		return (args) -> {
 			System.out.println("*** DEMO JPA ***");
 
-			Pageable page = PageRequest.of(2,5, Sort.by("name"));
+			long count = repository.count();
+			long totalPages = count / 5 + 1;
 
-			List<Author> authors = repository.findAllByAnyName("k", page);
+			for(int pageIndex = 0; pageIndex < totalPages; pageIndex++ ) {
+
+				Pageable page = PageRequest.of(pageIndex, 5, Sort.by("name"));
+				Page<Author> page1 = repository.findAll(page);
+
+				System.out.println("PAGE " + pageIndex);
+
+				for(Author author : page1.getContent()) {
+					System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+			/*List<Author> authors = repository.findAllByAnyName("k", page);
 
 			for (Author author : authors) {
 				System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
@@ -42,7 +67,7 @@ public class LibraryApplication {
 				}
 
 				System.out.println();
-			}
+			}*/
 		};
 	}
 }
