@@ -27,47 +27,11 @@ public class LibraryApplication {
 		return (args) -> {
 			System.out.println("*** DEMO JPA ***");
 
-			long count = repository.count();
-			long totalPages = count / 5 + 1;
+			List<Author> listAuthors = repository.findAll();
 
-			for(int pageIndex = 0; pageIndex < totalPages; pageIndex++ ) {
-
-				Pageable page = PageRequest.of(pageIndex, 5, Sort.by("name"));
-				Page<Author> page1 = repository.findAll(page);
-
-				System.out.println("PAGE " + pageIndex);
-
-				for(Author author : page1.getContent()) {
-					System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
-				}
-			}
-
-
-
-
-
-
-
-
-
-
-
-
-			/*List<Author> authors = repository.findAllByAnyName("k", page);
-
-			for (Author author : authors) {
+			for (Author author : listAuthors) {
 				System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
-
-				for(Book book : author.getBooks()) {
-					System.out.println("  BOOK: " + book.getName());
-
-					for(Review review : book.getReviews())
-						System.out.println("    REVIEW: " + review.getReviewText());
-
-				}
-
-				System.out.println();
-			}*/
+			}
 		};
 	}
 }
