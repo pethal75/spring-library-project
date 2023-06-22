@@ -1,37 +1,46 @@
 package sk.library;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import sk.library.dto.AuthorSurname;
-import sk.library.model.Author;
-import sk.library.model.Book;
-import sk.library.model.Review;
-import sk.library.repository.AuthorRepository;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import sk.library.model.Author;
+import sk.library.model.Library;
+import sk.library.repository.AuthorRepository;
+import sk.library.repository.LibraryRepository;
 
 @SpringBootApplication
 public class LibraryApplication {
+
+	@Autowired
+	protected LibraryRepository libraryRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LibraryApplication.class, args);
 	}
 
+
 	@Bean
-	public CommandLineRunner startup(AuthorRepository repository) {
+	public CommandLineRunner startup() {
 		return (args) -> {
-			System.out.println("*** DEMO JPA ***");
+			System.out.println("*** Library application ***");
 
-			List<Author> listAuthors = repository.findAll();
-
-			for (Author author : listAuthors) {
-				System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
+			for (Library library : libraryRepository.findAll()) {
+				System.out.println("LIBRARY: " + library.getName() + " " + library.getAddress());
 			}
 		};
 	}
 }
+
+
+
+
+
+			/*List<Author> listAuthors = repository.findAll();
+			for (Author author : listAuthors) {
+				System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
+			}*/
+
+

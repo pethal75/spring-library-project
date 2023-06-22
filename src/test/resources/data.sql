@@ -23,3 +23,16 @@ INSERT INTO public.book (name,count,id_author,id_book) VALUES
 INSERT INTO public.book (name,count,id_author,id_book) VALUES
 ('Cujo',5,11,13),
 ('Night in Lisabon',5,13,15);
+
+
+INSERT INTO library (id_library,name,address,city) VALUES
+(13,'Kniznica Raca','Nobelova 25','Bratislava'),
+(2,'Kniznica Ruzinov','Tomasikova 50','Bratislava'),
+(3,'Kniznica Dubravka','Repasskeho 1','Bratislava'),
+(4,'Kniznica stare mesto','sochova 23','Bratislava'),
+(5,'Kniznica ruzovce ','ruzovce 23','Bratislava'),
+(6,'Kniznica Svaty jur ','prostredna 23','Svaty jur '),
+(7,'Kniznica Stare Mesto','Venturska 12','Bratislava'),
+(8,'Kniznica Roznava','Ciklerova 5','Roznava'),
+(9,'Kniznica Svaty jur ','prostredna 23','Svaty jur '),
+(10,'Kniznica nove mesto ','racianska 23','Bratislava ');
