@@ -1,5 +1,6 @@
 package sk.library.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class Review {
     protected String reviewText;
     @ManyToOne
     @JoinColumn(name = "id_book")
+    @JsonBackReference
     protected Book book;
     @Column(name = "review_stars")
     protected Integer stars;

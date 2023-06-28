@@ -1,5 +1,10 @@
 package sk.library.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
+@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class,property="id")
 public class Book {
 
     @Id
@@ -26,9 +32,11 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "id_author")
+    @JsonIgnore
     protected Author author;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)
+    @JsonIgnore
     protected Set<Review> reviews;
 
     public Long getId() {
