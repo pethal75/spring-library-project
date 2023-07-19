@@ -15,5 +15,5 @@ public interface LibraryRepository extends JpaRepository<Library, Long> {
     void delete(Library entity);
 
     @RestResource(path = "name")
-    List<Library> findByName(String name);
+    List<Library> findByNameContaining(String name);
 }

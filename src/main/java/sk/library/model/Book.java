@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -17,11 +19,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "book")
-@JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class,property="id")
 public class Book {
 
     @Id
     @Column(name = "id_book")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(name = "name")
@@ -32,7 +34,6 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "id_author")
-    @JsonIgnore
     protected Author author;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.EAGER)

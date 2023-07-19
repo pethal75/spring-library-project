@@ -6,12 +6,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import sk.library.model.Author;
 import sk.library.model.Library;
 import sk.library.repository.AuthorRepository;
 import sk.library.repository.LibraryRepository;
 
 @SpringBootApplication
+@EnableWebMvc
 public class LibraryApplication {
 
 	@Autowired
@@ -22,7 +24,7 @@ public class LibraryApplication {
 	}
 
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner startup() {
 		return (args) -> {
 			System.out.println("*** Library application ***");
@@ -31,16 +33,5 @@ public class LibraryApplication {
 				System.out.println("LIBRARY: " + library.getName() + " " + library.getAddress());
 			}
 		};
-	}
+	}*/
 }
-
-
-
-
-
-			/*List<Author> listAuthors = repository.findAll();
-			for (Author author : listAuthors) {
-				System.out.println("AUTHOR: " + author.getName() + " " + author.getSurname());
-			}*/
-
-
