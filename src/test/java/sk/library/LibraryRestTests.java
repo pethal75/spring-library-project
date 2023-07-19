@@ -100,8 +100,10 @@ class LibraryRestTests {
     @Test
     void patchLibraryInvalidName() throws Exception {
 
+        Library library = libraryRepository.findAll().iterator().next();
+
         MvcResult result = mockMvc.perform(
-                        patch("/libraries/3")
+                        patch("/libraries/" + library.getId())
                                 .content("{\"name\":\"test\"}")
                                 .accept("application/json"))
                 .andDo(print())
@@ -110,11 +112,11 @@ class LibraryRestTests {
         assertThat(result.getResponse().getStatus())
                 .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
-        Optional<Library> library2 = libraryRepository.findById(3L);
+        Optional<Library> library2 = libraryRepository.findById(library.getId());
 
         assertThat(library2).isPresent();
         assertThat(library2.get().getName())
-                .isEqualTo("Kniznica Dubravka");
+                .isEqualTo(library.getName());
     }
 
     @Test

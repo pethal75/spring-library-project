@@ -4,11 +4,13 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import sk.library.model.Library;
 import sk.library.repository.LibraryRepository;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class LibraryRepositoryTests {
 
     @Autowired

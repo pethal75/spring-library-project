@@ -19,7 +19,7 @@ import sk.library.model.Library;
 import sk.library.repository.LibraryRepository;
 
 @RestController
-@RequestMapping(value = "/libraries", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/libraries", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LibraryController {
 
     @Autowired
@@ -29,6 +29,10 @@ public class LibraryController {
     public ResponseEntity<Library> getLibrary(@PathVariable("id") Long id) {
 
         Optional<Library> libraryOptional = libraryRepository.findById(id);
+
+        if (!libraryOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok(libraryOptional.get());
     }
