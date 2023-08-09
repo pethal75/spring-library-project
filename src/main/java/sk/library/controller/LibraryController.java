@@ -1,10 +1,8 @@
 package sk.library.controller;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,15 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sk.library.model.Library;
 import sk.library.repository.LibraryRepository;
+import sk.library.service.LibraryService;
 
 @RestController
 @RequestMapping(value = "/api/v1/libraries", produces = MediaType.APPLICATION_JSON_VALUE)
 public class LibraryController {
 
     @Autowired
-    LibraryRepository libraryRepository;
-
-
+    LibraryService libraryService;
 
     @GetMapping(value = "/test/{id}")
     public ResponseEntity<String> test(@PathVariable("id") Long id,
@@ -43,7 +40,6 @@ public class LibraryController {
 
 
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<Library> getLibrary(@PathVariable("id") Long id) {
 
@@ -51,9 +47,9 @@ public class LibraryController {
             return ResponseEntity.badRequest().build();
         }
 
-        Optional<Library> libraryOptional = libraryRepository.findById(id);
+        Optional<Library> libraryOptional = libraryService.findLibraryById(id);
 
-        if (!libraryOptional.isPresent()) {
+        if (libraryOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
@@ -63,7 +59,7 @@ public class LibraryController {
     @PostMapping(value = "/")
     public ResponseEntity<Library> createLibrary(@RequestBody Library library) {
 
-        Library libraryCreated = libraryRepository.save(library);
+        Library libraryCreated = libraryService.create(library);
 
         return ResponseEntity.ok(libraryCreated);
     }
@@ -72,7 +68,7 @@ public class LibraryController {
     public ResponseEntity<List<Library>> searchLibraries(
             @RequestParam(name = "nameQuery", required = false) String name) {
 
-        List<Library> libraries = libraryRepository.findByNameContaining(name);
+        List<Library> libraries = libraryService.findByNameContaining(name);
 
         return ResponseEntity.ok(libraries);
     }
