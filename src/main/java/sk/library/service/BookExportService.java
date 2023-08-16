@@ -22,10 +22,16 @@ public class BookExportService {
 
         for(Book book : booksList) {
 
-            BookRecord record = new BookRecord(
+            /*BookRecord record = new BookRecord(
                     book.getName(),
                     book.getAuthor().getName() + " " + book.getAuthor().getSurname(),
-                    book.getCount());
+                    book.getCount());*/
+
+            BookRecord record = BookRecord.builder()
+                    .name(book.getName())
+                    .author(book.getAuthor().getName() + " " + book.getAuthor().getSurname())
+                    .count(book.getCount())
+                    .build();
 
             export.getBookRecordList().add(record);
         }
