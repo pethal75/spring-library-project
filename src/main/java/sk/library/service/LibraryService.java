@@ -68,6 +68,20 @@ public class LibraryService {
     }
 
     public boolean returnBook(Long idBook) {
+
+        // Find book in database
+        Optional<Book> book = bookRepository.findById(idBook);
+
+        if (book.isEmpty())
+            return false;
+
+        // Increase book count
+        Long currentCount = book.get().getCount();
+
+        book.get().setCount( currentCount + 1 );
+
+        bookRepository.save(book.get());
+
         return true;
     }
 }

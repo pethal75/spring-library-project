@@ -72,19 +72,14 @@ public class LibraryController {
         return ResponseEntity.ok(libraries);
     }
 
-    @GetMapping(value = "/testException500")
-    public void testEndpointException500() {
-
-        throw new IllegalStateException("TEST");
+    @PostMapping(value = "/borrowBook/{id}")
+    public boolean borrowBook(@PathVariable("id") Long id) {
+        return libraryService.borrowBook(id);
     }
 
-    @GetMapping(value = "/testException400")
-    public void testEndpointException400() {
+    @PostMapping(value = "/returnBook/{id}")
+    public boolean returnBook(@PathVariable("id") Long id) {
 
-        throw new IllegalArgumentException("TEST");
-    }
-    @ExceptionHandler({ IllegalArgumentException.class })
-    public ResponseEntity<String> handleException() {
-        return ResponseEntity.badRequest().body("Zle parametre");
+        return libraryService.returnBook(id);
     }
 }

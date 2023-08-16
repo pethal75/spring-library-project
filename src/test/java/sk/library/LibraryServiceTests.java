@@ -99,5 +99,26 @@ class LibraryServiceTests {
     }
 
     @Test
-    void testBorrowBookFailed() {}
+    void testReturnBookSuccess() {
+
+        Book randomBook = bookRepository.findAll().iterator().next();
+
+        assertThat(randomBook).isNotNull();
+
+        System.out.println("Book before " + randomBook.getName() + " " + randomBook.getCount());
+
+        Long countBefore = randomBook.getCount();
+
+        assertThat(
+                libraryService.returnBook(randomBook.getId())
+        ).isTrue();
+
+        Book bookAfter = bookRepository.findById(randomBook.getId()).get();
+
+        System.out.println("Book after " + bookAfter.getName() + " " + bookAfter.getCount());
+
+        Long countAfter = bookAfter.getCount();
+
+        assertThat(countBefore + 1).isEqualTo(countAfter);
+    }
 }
