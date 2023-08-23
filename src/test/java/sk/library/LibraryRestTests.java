@@ -143,4 +143,31 @@ class LibraryRestTests {
                .doesNotContain("address")
                .doesNotContain("city");
     }
+
+    @Test
+    void testExportBooks() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/api/v1/libraries/exportAllBooks"))
+                .andDo(print())
+                .andReturn();
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.OK.value());
+
+        assertThat(result.getResponse().getContentAsString()).contains("Java Programming");
+    }
+
+    @Test
+    void testExportAuthors() throws Exception {
+
+        MvcResult result = mockMvc.perform(get("/api/v1/libraries/exportAllAuthors"))
+                .andDo(print())
+                .andReturn();
+
+        assertThat(result.getResponse().getStatus())
+                .isEqualTo(HttpStatus.OK.value());
+
+        assertThat(result.getResponse().getContentAsString())
+                .contains("\"Ernest Hemingway\",\"bookCount\":1");
+    }
 }
