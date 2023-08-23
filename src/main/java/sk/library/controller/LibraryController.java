@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import sk.library.dto.AuthorsExport;
 import sk.library.model.BooksExport;
 import sk.library.model.Library;
+import sk.library.service.AuthorExportService;
 import sk.library.service.BookExportService;
 import sk.library.service.LibraryService;
 
@@ -29,6 +31,9 @@ public class LibraryController {
 
     @Autowired
     BookExportService bookExportService;
+
+    @Autowired
+    AuthorExportService authorExportService;
 
     @GetMapping(value = "/test/{id}")
     public ResponseEntity<String> test(@PathVariable("id") Long id,
@@ -99,5 +104,11 @@ public class LibraryController {
         log.error("ERROR");
 
         return bookExportService.exportAllBooks();
+    }
+
+    @GetMapping(value = "/exportAllAuthors")
+    public AuthorsExport exportAuthors() {
+
+        return authorExportService.exportAllAuthors();
     }
 }
