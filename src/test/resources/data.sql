@@ -19,7 +19,7 @@ INSERT INTO public.book (name,count,id_author,id_book) VALUES
 ('Poklad na striebornom jazere',3,4,7),
 ('Java 1',10,100,8),
 ('Java 2',10,100,9),
-('Java 3',5,100,10),
+('Java 3',3,100,10),
 ('Hajnikova zena',5,7,11);
 INSERT INTO public.book (name,count,id_author,id_book) VALUES
 ('Cujo',5,11,13),

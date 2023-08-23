@@ -19,7 +19,7 @@ import sk.library.repository.BookRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BookRestTests {
+class BookRestTests {
 
     @Autowired
     MockMvc mockMvc;

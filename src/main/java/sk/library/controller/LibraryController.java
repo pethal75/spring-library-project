@@ -2,6 +2,7 @@ package sk.library.controller;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import sk.library.service.LibraryService;
 
 @RestController
 @RequestMapping(value = "/api/v1/libraries", produces = MediaType.APPLICATION_JSON_VALUE)
+@Slf4j
 public class LibraryController {
 
     @Autowired
@@ -90,6 +92,9 @@ public class LibraryController {
 
     @GetMapping(value = "/exportAllBooks")
     public BooksExport exportBooks() {
+
+        log.debug("DEBUGGING");
+        log.error("ERROR");
 
         return bookExportService.exportAllBooks();
     }

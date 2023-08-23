@@ -66,10 +66,10 @@ class LibraryServiceTests {
 
     @Test
     void testBorrowBookSuccess() {
-        assertThat(libraryService.borrowBook(2L)).isTrue();
-        assertThat(libraryService.borrowBook(2L)).isTrue();
-        assertThat(libraryService.borrowBook(2L)).isTrue();
-        assertThat(libraryService.borrowBook(2L)).isFalse();
+        assertThat(libraryService.borrowBook(10L)).isTrue();
+        assertThat(libraryService.borrowBook(10L)).isTrue();
+        assertThat(libraryService.borrowBook(10L)).isTrue();
+        assertThat(libraryService.borrowBook(10L)).isFalse();
     }
     @Test
     void testBorrowBookSuccessUniversal() {
