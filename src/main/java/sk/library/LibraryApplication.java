@@ -17,9 +17,6 @@ public class LibraryApplication {
 
 	public static void main(String[] args) {
 
-		log.debug("DEBUGGING");
-		log.error("ERROR");
-
 		SpringApplication.run(LibraryApplication.class, args);
 	}
 }

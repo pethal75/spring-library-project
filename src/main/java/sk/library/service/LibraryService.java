@@ -3,6 +3,7 @@ package sk.library.service;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sk.library.model.Book;
@@ -12,6 +13,7 @@ import sk.library.repository.LibraryRepository;
 
 @Component
 @Transactional
+@Slf4j
 public class LibraryService {
 
     @Autowired
@@ -21,6 +23,9 @@ public class LibraryService {
     BookRepository bookRepository;
 
     public Optional<Library> findLibraryById(Long id) {
+
+        log.debug("findLibraryById {}", id);
+
         return libraryRepository.findById(id);
     }
 

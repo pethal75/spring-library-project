@@ -49,6 +49,8 @@ public class LibraryController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Library> getLibrary(@PathVariable("id") Long id) {
 
+        log.debug("findLibraryById {}", id);
+
         if (id == null || id < 0) {
             return ResponseEntity.badRequest().build();
         }
