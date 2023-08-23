@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,6 +23,7 @@ import sk.library.repository.LibraryRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class LibraryRestTests {
 
     @Autowired
@@ -66,15 +68,21 @@ class LibraryRestTests {
     @Test
     void getLibrarySuccess() throws Exception {
 
-        MvcResult result = mockMvc.perform(get("/libraries/2"))
+        MvcResult result = mockMvc.perform(get("/libraries/7"))
                 .andDo(print())
                 .andReturn();
 
-        Library library = objectMapper.readValue(result.getResponse().getContentAsString(), Library.class);
+        String response = result.getResponse().getContentAsString();
+
+        System.out.println("------------------------------------");
+        System.out.println(response);
+        System.out.println("------------------------------------");
+
+        Library library = objectMapper.readValue(response, Library.class);
 
         assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(result.getResponse().getContentAsString()).contains("Kniznica Ruzinov");
-        assertThat(library.getName()).isEqualTo("Kniznica Ruzinov");
+        assertThat(result.getResponse().getContentAsString()).contains("Kniznica Stare Mesto");
+        assertThat(library.getName()).isEqualTo("Kniznica Stare Mesto");
     }
 
     @Test
@@ -121,17 +129,18 @@ class LibraryRestTests {
 
     @Test
     void testLibraryNameProjection() throws Exception {
-         MvcResult result = mockMvc.perform(get("/libraries?projection=LibraryName"))
-                .andDo(print())
-                .andReturn();
+        Library library = libraryRepository.findAll().iterator().next();
 
-         assertThat(result.getResponse().getStatus())
-                .isEqualTo(HttpStatus.OK.value());
+        MvcResult result = mockMvc.perform(get("/libraries?projection=LibraryName"))
+               .andDo(print())
+               .andReturn();
 
-         assertThat(result.getResponse().getContentAsString())
-                .contains("Kniznica Ruzinov")
-                .doesNotContain("address")
-                .doesNotContain("city");
+        assertThat(result.getResponse().getStatus())
+               .isEqualTo(HttpStatus.OK.value());
 
+        assertThat(result.getResponse().getContentAsString())
+               .contains(library.getName())
+               .doesNotContain("address")
+               .doesNotContain("city");
     }
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,7 +20,8 @@ import sk.library.repository.AuthorRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthorRestTests {
+@ActiveProfiles("test")
+class AuthorRestTests {
 
     @Autowired
     MockMvc mockMvc;
@@ -98,14 +100,14 @@ public class AuthorRestTests {
 
     @Test
     void patchAuthorSuccess() throws Exception {
-        mockMvc.perform(patch("/authors/2")
+        mockMvc.perform(patch("/authors/22")
                         .content("{\"name\":\"Zmenene meno\"}")
                         .accept("application/json"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
 
-        Author author = authorRepository.findById(2L).get();
+        Author author = authorRepository.findById(22L).get();
 
         assertThat(author.getName()).isEqualTo("Zmenene meno");
     }

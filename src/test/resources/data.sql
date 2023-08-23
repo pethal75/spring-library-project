@@ -1,6 +1,6 @@
 INSERT INTO public.author (id_author,name,surname) VALUES
 (20,'Antoine','Exupery'),
-(2,'Ernest','Hemingway'),
+(22,'Ernest','Hemingway'),
 (3,'Kathie','Sierra'),
 (4,'Karl','May'),
 (5,'Mykola','Gogol'),
@@ -12,7 +12,7 @@ INSERT INTO public.author (id_author,name,surname) VALUES
 (14,'Erich M.','Remarque2');
 INSERT INTO public.book (name,count,id_author,id_book) VALUES
 ('Java Programming',3,3,2),
-('The Old Man And The Sea',7,2,3),
+('The Old Man And The Sea',7,22,3),
 ('Winnetou 1',2,4,4),
 ('Winnetou 2',3,4,5),
 ('Winnetou 3',8,4,6),

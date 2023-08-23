@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import sk.library.model.Book;
 import sk.library.model.Library;
 import sk.library.repository.BookRepository;
@@ -12,6 +13,7 @@ import sk.library.service.LibraryService;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class LibraryServiceTests {
 
     @Autowired
@@ -21,10 +23,10 @@ class LibraryServiceTests {
 
     @Test
     void testFindLibraryOk() {
-        Optional<Library> libraryOptional = libraryService.findLibraryById(2L);
+        Optional<Library> libraryOptional = libraryService.findLibraryById(7L);
 
         assertThat(libraryOptional).isPresent();
-        assertThat(libraryOptional.get().getName()).isEqualTo("Kniznica Ruzinov");
+        assertThat(libraryOptional.get().getName()).isEqualTo("Kniznica Stare Mesto");
     }
 
     @Test
