@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +35,11 @@ public class LibraryController {
 
     @Autowired
     AuthorExportService authorExportService;
+
+    @Value("${menoAplikacie}")
+    String menoAplikacie;
+    @Value("${adresar}")
+    String adresar;
 
     @GetMapping(value = "/test/{id}")
     public ResponseEntity<String> test(@PathVariable("id") Long id,
@@ -110,5 +116,20 @@ public class LibraryController {
     public AuthorsExport exportAuthors() {
 
         return authorExportService.exportAllAuthors();
+    }
+
+    @GetMapping(value = "/app")
+    public String getMenoAplikacie() {
+
+        log.info("Starting endpoint getMenoAplikacie");
+
+        log.debug("Parameter nazov aplikacie = '{}', adresar = '{}'", menoAplikacie, adresar);
+
+        return menoAplikacie + " (" + adresar + ")";
+    }
+
+    @PostMapping(value = "/saveData")
+    public void uloz(@RequestParam("data") String data) {
+        // TODO ulozit data do adresara podla property
     }
 }

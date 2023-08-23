@@ -52,22 +52,32 @@ public class LibraryService {
      */
     public boolean borrowBook(Long idBook) {
 
+        log.info("borrowBook {} start", idBook);
+
         // Find book in database
         Optional<Book> book = bookRepository.findById(idBook);
 
-        if (book.isEmpty())
+        if (book.isEmpty()) {
+            log.warn("borrowBook {} failed, book not found", idBook);
             return false;
+        }
 
         // Check book count > 0
-        if (book.get().getCount() == 0)
+        if (book.get().getCount() == 0) {
+            log.debug("borrowBook {} failed, book count 0", idBook);
             return false;
+        }
 
         // Decrease book count
         Long currentCount = book.get().getCount();
 
+        log.debug("borrowBook {} count {}", idBook, currentCount);
+
         book.get().setCount( currentCount - 1 );
 
         bookRepository.save(book.get());
+
+        log.debug("borrowBook {} success", idBook);
 
         return true;
     }
