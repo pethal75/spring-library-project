@@ -14,7 +14,7 @@ import sk.library.repository.LibraryRepository;
 @SpringBootApplication
 @EnableWebMvc
 @Slf4j
-@EnableScheduling
+//@EnableScheduling
 public class LibraryApplication {
 
 	@Autowired
