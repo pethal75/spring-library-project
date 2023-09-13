@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import sk.library.repository.LibraryRepository;
 
 @SpringBootApplication
 @EnableWebMvc
 @Slf4j
+@EnableScheduling
 public class LibraryApplication {
 
 	@Autowired
