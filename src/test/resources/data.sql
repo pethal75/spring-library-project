@@ -36,4 +36,4 @@ INSERT INTO library (id_library,name,address,city) VALUES
 (7,'Kniznica Stare Mesto','Venturska 12','Bratislava'),
 (8,'Kniznica Roznava','Ciklerova 5','Roznava'),
 (9,'Kniznica Svaty jur ','prostredna 23','Svaty jur '),
-(10,'Kniznica nove mesto ','racianska 23','Bratislava ');
+(20,'Kniznica nove mesto ','racianska 23','Bratislava ');
