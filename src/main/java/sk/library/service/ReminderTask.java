@@ -12,4 +12,9 @@ public class ReminderTask {
     public void runTask() {
         log.info("Running task");
     }
+
+    @Scheduled(fixedRate = 2000)
+    public void runTask2() {
+        log.info("Running task 2");
+    }
 }
