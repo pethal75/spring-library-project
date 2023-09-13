@@ -127,9 +127,4 @@ public class LibraryController {
 
         return menoAplikacie + " (" + adresar + ")";
     }
-
-    @PostMapping(value = "/saveData")
-    public void uloz(@RequestParam("data") String data) {
-        // TODO ulozit data do adresara podla property
-    }
 }
