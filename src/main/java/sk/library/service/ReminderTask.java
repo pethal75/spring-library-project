@@ -20,10 +20,12 @@ public class ReminderTask {
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
 
-    @Scheduled(fixedRate = 3000)
+    @Scheduled(fixedRate = 5000)
     public void runTask() {
         log.info("Running task");
 
+        NotificationMessage msg = new NotificationMessage(this, "Books count start");
+        applicationEventPublisher.publishEvent(msg);
 
         List<Book> books = repository.findAll();
 
@@ -36,7 +38,7 @@ public class ReminderTask {
             .filter(book -> book.getCount() > 0)
             .forEach(book -> log.info("Checking book " + book.getName()));
 
-        NotificationMessage msg = new NotificationMessage(this, "Books count done");
+        msg = new NotificationMessage(this, "Books count done");
         applicationEventPublisher.publishEvent(msg);
     }
 }

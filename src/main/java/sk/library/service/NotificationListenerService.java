@@ -9,6 +9,11 @@ public class NotificationListenerService implements ApplicationListener<Notifica
 
     @Override
     public void onApplicationEvent(NotificationMessage event) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Received notification message - " + event.getMessage());
     }
 }
