@@ -8,7 +8,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import sk.library.model.Book;
 import sk.library.repository.BookRepository;
+import sk.library.service.messages.EmailMessage;
 import sk.library.service.messages.NotificationMessage;
+import sk.library.service.messages.SmsMessage;
 
 @Component
 @Slf4j
@@ -22,23 +24,19 @@ public class ReminderTask {
 
     @Scheduled(fixedRate = 5000)
     public void runTask() {
-        log.info("Running task");
+        log.info("Running reminder task");
 
-        NotificationMessage msg = new NotificationMessage(this, "Books count start");
+        // List<Book> books = repository.findAll();
+
+
+        EmailMessage msg = new EmailMessage(this,
+                "aaa@gmail.com",
+                "Book reminder email");
         applicationEventPublisher.publishEvent(msg);
 
-        List<Book> books = repository.findAll();
-
-        for(Book book : books) {
-            if (book.getCount() > 0)
-                log.info("Checking book " + book.getName());
-        }
-
-        books.stream()
-            .filter(book -> book.getCount() > 0)
-            .forEach(book -> log.info("Checking book " + book.getName()));
-
-        msg = new NotificationMessage(this, "Books count done");
-        applicationEventPublisher.publishEvent(msg);
+        SmsMessage sms = new SmsMessage(this,
+                "0905123456",
+                "Book reminder sms");
+        applicationEventPublisher.publishEvent(sms);
     }
 }

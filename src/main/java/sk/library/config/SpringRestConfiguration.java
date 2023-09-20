@@ -1,10 +1,6 @@
 package sk.library.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.event.ApplicationEventMulticaster;
-import org.springframework.context.event.SimpleApplicationEventMulticaster;
-import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.MediaType;
@@ -20,12 +16,12 @@ public class SpringRestConfiguration implements RepositoryRestConfigurer {
         config.useHalAsDefaultJsonMediaType(false);
     }
 
-    @Bean(name = "applicationEventMulticaster")
+    /*@Bean(name = "applicationEventMulticaster")
     public ApplicationEventMulticaster simpleApplicationEventMulticaster() {
         SimpleApplicationEventMulticaster eventMulticaster =
                 new SimpleApplicationEventMulticaster();
 
         eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
         return eventMulticaster;
-    }
+    }*/
 }
