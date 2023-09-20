@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 import sk.library.service.messages.NotificationMessage;
 
 @Component
-public class NotificationListenerService implements ApplicationListener<NotificationMessage> {
+public class NotificationSmsListener implements ApplicationListener<NotificationMessage> {
 
     @Override
     public void onApplicationEvent(NotificationMessage event) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Received notification message - " + event.getMessage());
+        System.out.println("Received SMS message - " + event.getMessage());
     }
 }
